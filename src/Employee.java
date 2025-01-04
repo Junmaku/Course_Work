@@ -8,15 +8,6 @@ public class Employee {
     private double salary;
     private int department;
     private int id;
-    private int place;
-
-    public int getPlace() {
-        return place;
-    }
-
-    public void setPlace(int place) {
-        this.place = place;
-    }
 
     public int getDepartment() {
         return department;
@@ -51,7 +42,7 @@ public class Employee {
     }
 
     public void setId(int id) {
-        this.id = ++count;
+        this.id = id;
     }
 
     public void setMiddleName(String middleName) {
@@ -94,8 +85,12 @@ public class Employee {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getAClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getAClass() != o.getClass()) {
+            return false;
+        }
         Employee employee = (Employee) o;
         return Double.compare(salary, employee.salary) == 0 && department == employee.department && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(middleName, employee.middleName);
     }
@@ -123,11 +118,15 @@ public class Employee {
     }
 
     public void printName() {
-        System.out.printf("%s %s %s\n", lastName, firstName, middleName == null ? "" : middleName);
+        System.out.println(getFullName());
+    }
+
+    public String getEmployeeWithoutDepartment() {
+        return String.format("id: %d\nФИО: %s %s %s\nЗарплата: %.2f\n", id, lastName, firstName, middleName == null ? "" : middleName, salary);
     }
 
     public void printEmployeeWithOutDepartment() {
-        System.out.printf("id: %d\nФИО: %s %s %s\nЗарплата: %.2f\n", id, lastName, firstName, middleName == null ? "" : middleName, salary);
+        System.out.println(getEmployeeWithoutDepartment());
     }
 
 

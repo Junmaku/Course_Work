@@ -1,4 +1,4 @@
-public class EmployeesBook {
+public class EmployeeBook {
     private final Employee[] EMPLOYEES;
     private int size;
 
@@ -7,7 +7,7 @@ public class EmployeesBook {
      *
      * @param capacity максимальное количество сотрудников
      */
-    public EmployeesBook(int capacity) {
+    public EmployeeBook(int capacity) {
         this.EMPLOYEES = new Employee[capacity];
         this.size = 0;
     }
@@ -36,7 +36,6 @@ public class EmployeesBook {
         for (int i = 0; i < EMPLOYEES.length; i++) {
             if (EMPLOYEES[i] == null) {
                 EMPLOYEES[i] = employee;
-                employee.setPlace(i);
                 size++;
                 return;
             }
@@ -193,7 +192,7 @@ public class EmployeesBook {
      * @param id id сотрудника
      */
     public void printNameById(int id) {
-        System.out.printf("Имя работника с ID %d: %s", id, getNameFromID(id));
+        System.out.printf("Имя работника с ID %d: %s\n", id, getNameFromID(id));
     }
 
     /**
@@ -228,12 +227,12 @@ public class EmployeesBook {
      *
      * @param index Процент индексации
      */
-    public void indexSalary(int index) {
+    public void indexSalary(double index) {
         double sum = getSumSalary();
         for (Employee employee : EMPLOYEES) {
             if (employee != null) {
                 double salary = employee.getSalary();
-                double newSalary = salary * (1 + (double) (index / 100));
+                double newSalary = salary * (1 + (index / 100));
                 employee.setSalary(newSalary);
             }
         }
@@ -303,12 +302,12 @@ public class EmployeesBook {
      *
      * @param department отдел
      */
-    public void indexSalaryByDepartment(int department, int index) {
+    public void indexSalaryByDepartment(int department, double index) {
         double sum = getSumSalaryByDepartment(department);
         for (Employee employee : EMPLOYEES) {
             if (employee != null && employee.getDepartment() == department) {
                 double salary = employee.getSalary();
-                double newSalary = salary * (1 + (double) index / 100);
+                double newSalary = salary * (1 + index / 100);
                 employee.setSalary(newSalary);
             }
         }
@@ -343,7 +342,7 @@ public class EmployeesBook {
             }
         }
         if (count == 0) {
-            System.out.printf("Работников с зарплатой ниже значения не найдено.\n");
+            System.out.println("Работников с зарплатой ниже значения не найдено.");
         }
     }
 

@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    static EmployeesBook book1 = dataEmployees.main(10);
+    static EmployeeBook book1 = dataEmployees.book;
 
     static void mainMenu() {
         System.out.println("Добро пожаловать в главное меню. Выберите действие:");
@@ -28,163 +28,330 @@ public class Main {
         choiseMenu(choise);
     }
 
+    static boolean isNotString(String str) {
+        return !(str.matches("^[a-zA-Zа-яА-я]*+[-.\\s]?[a-zA-Zа-яА-Я]*?$") && !str.isEmpty() && !str.startsWith(" "));
+    }
+
+    static boolean isNotRightDepartment(String str) {
+        return !str.matches("^[1-5]$");
+    }
+
+    static boolean isNotDoubleDigit(String str) {
+        if (str.matches("^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$")) {
+            return !(Double.parseDouble(str) >= 0);
+        }
+        return true;
+    }
+
+    static boolean isNotIntPositiveDigit(String str) {
+        if (str.matches("^[0-9]+$")) {
+            return !(Integer.parseInt(str) >= 0);
+        }
+        return true;
+    }
+
+
     static void choiseMenu(int choise) {
         String back = "0";
         Scanner sc = new Scanner(System.in);
-        //System.out.println("Введите число");
+        String tempString;
+        String tempInt;
+        String tempDouble;
+        double indexSalary;
+        double salary;
+        int depAdd;
         switch (choise) {
             case 1:
                 book1.printAllInfo();
                 System.out.println("0. Выйти в главное меню ");
-                if (sc.nextInt() == 0) {
-                    mainMenu();
-                    choiseMenu(sc.nextInt());
+                System.out.println("Нажмите любую клавишу для выхода");
+                tempInt = sc.nextLine();
+                if (tempInt != null) {
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                    }
+                    return;
                 }
-                break;
+                return;
             case 2:
                 System.out.println(book1.getSumSalary());
                 System.out.println("0. Выйти в главное меню ");
-                if (sc.nextInt() == 0) {
-                    mainMenu();
-                    choiseMenu(sc.nextInt());
+                System.out.println("Нажмите любую клавишу для выхода.");
+                tempInt = sc.nextLine();
+                if (tempInt != null) {
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                    }
+                    return;
                 }
-                break;
+                return;
             case 3:
                 Employee found3 = book1.findMinSalary();
                 found3.printName();
                 System.out.println("Зарплата минимальная: " + found3.getSalary());
-                System.out.println("0. Выйти в главное меню ");
-                if (sc.nextInt() == 0) {
-                    mainMenu();
-                    choiseMenu(sc.nextInt());
+                System.out.println("\n0. Выйти в главное меню ");
+                tempInt = sc.nextLine();
+                if (isNotIntPositiveDigit(tempInt)) {
+                    if (sc.nextInt() == 0) {
+                        mainMenu();
+                        return;
+                    }
                 }
-                break;
+                return;
             case 4:
                 Employee found4 = book1.findMaxSalary();
                 found4.printName();
                 System.out.println("Зарплата максимальная: " + found4.getSalary());
                 System.out.println("0. Выйти в главное меню ");
-                if (sc.nextInt() == 0) {
-                    mainMenu();
-                    choiseMenu(sc.nextInt());
+                System.out.println("Нажмите любую клавишу для выхода.");
+                tempInt = sc.nextLine();
+                if (tempInt != null) {
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                    }
+                    return;
                 }
-                break;
+                return;
             case 5:
                 System.out.printf("Средняя зарплата: %.2f\n", book1.getAverageSalary());
                 System.out.println("0. Выйти в главное меню ");
-                if (sc.nextInt() == 0) {
-                    mainMenu();
-                    choiseMenu(sc.nextInt());
+                System.out.println("Нажмите любую клавишу для выхода.");
+                tempInt = sc.nextLine();
+                if (tempInt != null) {
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                    }
+                    return;
                 }
-                break;
+                return;
             case 6:
                 book1.printNames();
                 System.out.println("0. Выйти в главное меню ");
-                if (sc.nextInt() == 0) {
-                    mainMenu();
-                    choiseMenu(sc.nextInt());
+                System.out.println("Нажмите любую клавишу для выхода.");
+                tempInt = sc.nextLine();
+                if (tempInt != null) {
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                    }
+                    return;
                 }
-                break;
+                return;
             case 7:
-                System.out.println("Введите процент индексации");
-                int index7 = sc.nextInt();
-                book1.indexSalary(index7);
+                do {
+                    System.out.println("Введите процент индексации");
+                    tempDouble = sc.nextLine();
+                    if (tempDouble.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotDoubleDigit(tempDouble));
+                indexSalary = Double.parseDouble(tempDouble);
+                book1.indexSalary(indexSalary);
                 System.out.println("0. Выйти в главное меню ");
-                if (sc.nextInt() == 0) {
-                    mainMenu();
-                    choiseMenu(sc.nextInt());
+                System.out.println("Нажмите любую клавишу для выхода.");
+                tempInt = sc.nextLine();
+                if (tempInt != null) {
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                    }
+                    return;
                 }
-                break;
+                return;
             case 8:
-                System.out.println("Введите номер отдела");
-                int dep8 = sc.nextInt();
-                System.out.println(book1.findMinSalaryByDepratment(dep8));
+                do {
+                    System.out.println("Введите номер отдела (от 1 до 5). Введите 0 для выхода");
+                    tempInt = sc.nextLine();
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotRightDepartment(tempInt));
+                depAdd = Integer.parseInt(tempInt);
+                System.out.println("Минимальная зарплата в отделе " + depAdd + " у сотрудника: " + book1.findMinSalaryByDepratment(depAdd).getFullName());
+                System.out.println("Зарплата составляет: " + book1.findMinSalary().getSalary() + " рублей.");
                 System.out.println("0. Выйти в главное меню ");
-                if (sc.nextInt() == 0) {
-                    mainMenu();
-                    choiseMenu(sc.nextInt());
+                System.out.println("9. Найти максимальную зарплату в этом же отделе");
+                System.out.println("8. Выбрать другой отдел ");
+                System.out.println("Нажмите любую клавишу для выхода.");
+                tempInt = sc.nextLine();
+                if (!isNotIntPositiveDigit(tempInt)) {
+                    if (Integer.parseInt(tempInt) == 0) {
+                        mainMenu();
+                        return;
+                    } else if (Integer.parseInt(tempInt) == 9) {
+                        System.out.println("Максимальная зарплата в отделе " + depAdd + " у сотрудника: " + book1.findMaxSalarybyDepratment(depAdd).getFullName());
+                        System.out.println("Зарплата составляет: " + book1.findMaxSalarybyDepratment(depAdd).getSalary() + " рублей.");
+                        System.out.println("0. Выйти в главное меню ");
+                        System.out.println("Нажмите любую клавишу для выхода.");
+                        tempInt = sc.nextLine();
+                        if (tempInt != null) {
+                            if (tempInt.equals("0")) {
+                                mainMenu();
+                            }
+                            return;
+                        }
+
+                    } else if (Integer.parseInt(tempInt) == 8) {
+                        choiseMenu(8);
+                        return;
+                    } else {
+                        return;
+                    }
                 }
-                break;
+                return;
             case 9:
-                System.out.println("Введите номер отдела");
-                int dep9 = sc.nextInt();
-                System.out.println(book1.findMaxSalarybyDepratment(dep9));
+                do {
+                    System.out.println("Введите номер отдела (от 1 до 5). Введите 0 для выхода");
+                    tempInt = sc.nextLine();
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotRightDepartment(tempInt));
+                depAdd = Integer.parseInt(tempInt);
+                System.out.println("Максимальная зарплата в отделе " + depAdd + " у сотрудника: " + book1.findMaxSalarybyDepratment(depAdd).getFullName());
+                System.out.println("Зарплата составляет: " + book1.findMaxSalarybyDepratment(depAdd).getSalary() + " рублей.");
                 System.out.println("0. Выйти в главное меню ");
                 if (sc.nextInt() == 0) {
                     mainMenu();
-                    choiseMenu(sc.nextInt());
+                    return;
                 }
-                break;
             case 10:
-                System.out.println("Введите номер отдела");
-                int dep10 = sc.nextInt();
-                System.out.println(book1.averageSalaryByDepartment(dep10));
-                System.out.println("Что бы выйти в главное меню, нажмите любую кнопку");
+                do {
+                    System.out.println("Введите номер отдела (от 1 до 5). Введите 0 для выхода");
+                    tempInt = sc.nextLine();
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotRightDepartment(tempInt));
+                depAdd = Integer.parseInt(tempInt);
+                System.out.println("Средняя зарплата в отделе: " + book1.averageSalaryByDepartment(depAdd));
+                System.out.println("Что бы выйти в главное меню, введите любой символ");
                 if (sc.next() != null) {
                     mainMenu();
-                    choiseMenu(sc.nextInt());
                 }
-                break;
+                return;
             case 11:
-                System.out.println("Введите номер отдела");
-                int dep11 = sc.nextInt();
-                System.out.println("Введите процент индексации");
-                int index11 = sc.nextInt();
-                book1.indexSalaryByDepartment(dep11, index11);
+                do {
+                    System.out.println("Введите номер отдела (от 1 до 5). Введите 0 для выхода");
+                    tempInt = sc.nextLine();
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotRightDepartment(tempInt));
+                depAdd = Integer.parseInt(tempInt);
+                do {
+                    System.out.println("Введите процент индексации");
+                    tempDouble = sc.nextLine();
+                    if (tempDouble.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotDoubleDigit(tempDouble));
+                indexSalary = Double.parseDouble(tempDouble);
+                book1.indexSalaryByDepartment(depAdd, indexSalary);
                 System.out.println("0. Выйти в главное меню ");
                 if (sc.nextInt() == 0) {
                     mainMenu();
-                    choiseMenu(sc.nextInt());
                 }
-                break;
+                return;
             case 12:
-                System.out.println("Введите номер отдела");
-                int dep12 = sc.nextInt();
-                book1.printNamesByDepartment(dep12);
+                do {
+                    System.out.println("Введите номер отдела (от 1 до 5). Введите 0 для выхода");
+                    tempInt = sc.nextLine();
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotRightDepartment(tempInt));
+                depAdd = Integer.parseInt(tempInt);
+                book1.printNamesByDepartment(depAdd);
                 System.out.println("0. Выйти в главное меню ");
                 if (sc.nextInt() == 0) {
                     mainMenu();
-                    choiseMenu(sc.nextInt());
                 }
-                break;
+                return;
             case 13:
-                System.out.println("Введите сумму, для вывода сотрудников ниже указанной");
-                double sal13 = sc.nextDouble();
-                book1.printEmployeesWithSalaryLessThan(sal13);
+                do {
+                    System.out.println("Введите сумму, для вывода сотрудников с зарплатой ниже указанной");
+                    tempDouble = sc.nextLine();
+                    if (tempDouble.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotDoubleDigit(tempDouble));
+                salary = Double.parseDouble(tempDouble);
+                book1.printEmployeesWithSalaryLessThan(salary);
                 System.out.println("0. Выйти в главное меню ");
                 if (sc.nextInt() == 0) {
                     mainMenu();
-                    choiseMenu(sc.nextInt());
                 }
-                break;
+                return;
             case 14:
-                System.out.println("Введите сумму, для вывода сотрудников выше указанной");
-                double sal14 = sc.nextDouble();
-                book1.printEmployeesWithSalaryMoreThan(sal14);
+                do {
+                    System.out.println("Введите сумму, для вывода сотрудников с зарплатой выше указанной");
+                    tempDouble = sc.nextLine();
+                    if (tempDouble.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotDoubleDigit(tempDouble));
+                salary = Double.parseDouble(tempDouble);
+                book1.printEmployeesWithSalaryMoreThan(salary);
                 System.out.println("0. Выйти в главное меню ");
                 if (sc.nextInt() == 0) {
                     mainMenu();
-                    choiseMenu(sc.nextInt());
                 }
-                break;
+                return;
             case 15:
                 if (!book1.isHavePlace()) {
                     System.out.println("Книга переполнена");
                     mainMenu();
-                    choiseMenu(sc.nextInt());
-                    break;
-
+                    return;
                 }
                 System.out.println("Введите имя");
-                String firstName = sc.nextLine();
+                tempString = sc.nextLine();
+                while (isNotString(tempString)) {
+                    System.out.println("Недопустимые символы.");
+                    System.out.println("Введите имя");
+                    tempString = sc.nextLine();
+                }
+                String firstName = tempString;
                 System.out.println("Введите фамилию");
-                String lastName = sc.nextLine();
+                tempString = sc.nextLine();
+                while (isNotString(tempString)) {
+                    System.out.println("Недопустимые символы.");
+                    System.out.println("Введите фамилию");
+                    tempString = sc.nextLine();
+                }
+                String lastName = tempString;
                 System.out.println("Введите отчество. Если отчества нет, введите 0");
-                String middleName = sc.nextLine();
+                tempString = sc.nextLine();
+                if (!tempString.equals("0")) {
+                    while (isNotString(tempString)) {
+                        System.out.println("Недопустимые символы.");
+                        System.out.println("Введите отчество");
+                        tempString = sc.nextLine();
+                    }
+                }
+                String middleName = tempString;
                 System.out.println("Введите номер отдела");
-                int depAdd = sc.nextInt();
+                tempInt = sc.nextLine();
+                while (isNotRightDepartment(tempInt)) {
+                    System.out.println("Введите номер отдела от 1 до 5");
+                    tempInt = sc.nextLine();
+                }
+                depAdd = Integer.parseInt(tempInt);
                 System.out.println("Введите зарплату работника");
-                double salAdd = sc.nextDouble();
+                tempDouble = sc.nextLine();
+                while (isNotDoubleDigit(tempDouble)) {
+                    System.out.println("Недопустимые символы");
+                    System.out.println("Введите зарплату работника");
+                    tempDouble = sc.nextLine();
+                }
+                double salAdd = Double.parseDouble(tempDouble);
                 if (middleName.equals("0")) {
                     book1.addEmployee(new Employee(lastName, firstName, depAdd, salAdd));
                 } else {
@@ -194,24 +361,41 @@ public class Main {
                 System.out.println("0. Выйти в главное меню ");
                 if (sc.nextInt() == 0) {
                     mainMenu();
-                    choiseMenu(sc.nextInt());
                 }
-                break;
+                return;
             case 16:
-                System.out.println("Введите id сотрудника");
-                book1.removeEmployeeFromId(sc.nextInt());
+                do {
+                    System.out.println("Введите id сотрудника. Для выхода в главное меню введите \"0\"");
+                    tempInt = sc.nextLine();
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotIntPositiveDigit(tempInt));
+
+                book1.removeEmployeeFromId(Integer.parseInt(tempInt));
                 System.out.println("Работник удален");
                 System.out.println("0. Выйти в главное меню ");
                 if (sc.nextInt() == 0) {
                     mainMenu();
-                    choiseMenu(sc.nextInt());
                 }
-                break;
+                return;
+
             case 17:
-                System.out.println("Введите id сотрудника");
-                int intChoise17 = sc.nextInt();
-                System.out.println(book1.getNameFromID(intChoise17));
-                break;
+                do {
+                    System.out.println("Введите id сотрудника. Введите \"0\" для выхода в главное меню.");
+                    tempInt = sc.nextLine();
+                    if (tempInt.equals("0")) {
+                        mainMenu();
+                        return;
+                    }
+                } while (isNotIntPositiveDigit(tempInt));
+                book1.printNameById(Integer.parseInt(tempInt));
+                System.out.println("0. Выйти в главное меню ");
+                if (sc.nextInt() == 0) {
+                    mainMenu();
+                }
+                return;
             case 18:
                 return;
             default:
@@ -219,50 +403,11 @@ public class Main {
                 int defaultChoise = sc.nextInt();
                 if (back.equals("" + defaultChoise)) {
                     mainMenu();
-                    choiseMenu(sc.nextInt());
                 }
         }
     }
 
     public static void main(String[] args) {
-        //      EmployeesBook book = new EmployeesBook(10);
-        //      book.addEmployee(new Employee("Иванов", "Иван", "Иванович", 1, 150000));          //1
-        //      book.addEmployee(new Employee("Петров", "Петр", 2, 140000));                                //2
-        //      book.addEmployee(new Employee("Шишкин", "Михаил", "Валентинович", 3, 100000));   //3
-        //      book.addEmployee(new Employee ("Шишкин", "Геннадий", "Валентинович", 3, 105000));  //4
-        //      book.addEmployee(new Employee ("Травинова", "Ирина", "Семеновна", 3, 104000));   //5
-        //      book.addEmployee(new Employee ("Сидорова", "Кристина", "Дмитриевна", 4, 110000));//6
-        //      book.addEmployee(new Employee ("Тушкевич", "Максим", "Николаевич", 1, 142000));  //7
-        //      book.addEmployee(new Employee ("Крутов", "Дмитрий", 5, 180000));                            //8
-        //      book.addEmployee(new Employee ("Харитонов", "Илья", "Владимирович", 5, 155000)); //9
-        //      book.addEmployee(new Employee ("Кругляшова", "Ирина", "Борисовна", 2, 145210));  //10
-
         mainMenu();
-        //System.out.println(book);
-        //EmployeesBook book1 = dataEmployees.main(10);
-
-        //book1.printEmployees();
-
-
-//        book.printAllInfo();
-//        book.printNames();
-//        System.out.println(book.getSumSalary());
-//        book.findMinSalary().printName();
-//        book.findMaxSalary().printName();
-//        System.out.println(book.getNameFromID(1));
-//        book.removeEmployeeFromId(2);
-
-//        book.addEmployee(new Employee("Петров", "Петр", 2, 140000));
-//        System.out.println(book.getNameFromID(2));
-//        System.out.println(book.getAverageSalary());
-//        System.out.println(book.findMinSalary());
-//        System.out.println(book.findMaxSalary());
-//        book.printNames();
-//        book.indexSalary(7);
-//        book.printNamesByDepartment(1);
-//        book.printEmployeesWithSalaryLessThan(120000);
-//        book.printEmployeesWithSalaryMoreThan(120000);
-
-
     }
 }
