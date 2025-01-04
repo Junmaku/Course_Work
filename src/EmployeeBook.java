@@ -122,11 +122,11 @@ public class EmployeeBook {
      */
     public Employee findMinSalary() {
         int found = 0;
-        double minSalar = Integer.MAX_VALUE;
+        double minSalary = Integer.MAX_VALUE;
         for (int i = 0; i < EMPLOYEES.length; i++) {
             if (EMPLOYEES[i] != null) {
-                if (minSalar > EMPLOYEES[i].getSalary()) {
-                    minSalar = EMPLOYEES[i].getSalary();
+                if (minSalary > EMPLOYEES[i].getSalary()) {
+                    minSalary = EMPLOYEES[i].getSalary();
                     found = i;
                 }
             }
@@ -148,11 +148,11 @@ public class EmployeeBook {
      */
     public Employee findMaxSalary() {
         int found = 0;
-        double minSalar = Integer.MIN_VALUE;
+        double minSalary = Integer.MIN_VALUE;
         for (int i = 0; i < EMPLOYEES.length; i++) {
             if (EMPLOYEES[i] != null) {
-                if (minSalar < EMPLOYEES[i].getSalary()) {
-                    minSalar = EMPLOYEES[i].getSalary();
+                if (minSalary < EMPLOYEES[i].getSalary()) {
+                    minSalary = EMPLOYEES[i].getSalary();
                     found = i;
                 }
             }
@@ -245,13 +245,13 @@ public class EmployeeBook {
      * @param department отдел
      * @return сотрудник object
      */
-    public Employee findMinSalaryByDepratment(int department) {
+    public Employee findMinSalaryByDepartment(int department) {
         int found = 0;
-        double minSalar = Integer.MAX_VALUE;
+        double minSalary = Integer.MAX_VALUE;
         for (int i = 0; i < EMPLOYEES.length; i++) {
             if (EMPLOYEES[i] != null && EMPLOYEES[i].getDepartment() == department) {
-                if (minSalar > EMPLOYEES[i].getSalary()) {
-                    minSalar = EMPLOYEES[i].getSalary();
+                if (minSalary > EMPLOYEES[i].getSalary()) {
+                    minSalary = EMPLOYEES[i].getSalary();
                     found = i;
                 }
             }
@@ -265,13 +265,13 @@ public class EmployeeBook {
      * @param department отдел
      * @return сотрудник object
      */
-    public Employee findMaxSalarybyDepratment(int department) {
+    public Employee findMaxSalaryByDepartment(int department) {
         int found = 0;
-        double maxSalar = Integer.MIN_VALUE;
+        double maxSalary = Integer.MIN_VALUE;
         for (int i = 0; i < EMPLOYEES.length; i++) {
             if (EMPLOYEES[i] != null && EMPLOYEES[i].getDepartment() == department) {
-                if (maxSalar < EMPLOYEES[i].getSalary()) {
-                    maxSalar = EMPLOYEES[i].getSalary();
+                if (maxSalary < EMPLOYEES[i].getSalary()) {
+                    maxSalary = EMPLOYEES[i].getSalary();
                     found = i;
                 }
             }

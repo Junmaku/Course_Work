@@ -24,8 +24,8 @@ public class Main {
         System.out.println("17. Найти сотрудника по id");
         System.out.println("18. Выйти");
         Scanner scan = new Scanner(System.in);
-        int choise = scan.nextInt();
-        choiseMenu(choise);
+        int choice = scan.nextInt();
+        choiceMenu(choice);
     }
 
     static boolean isNotString(String str) {
@@ -51,7 +51,7 @@ public class Main {
     }
 
 
-    static void choiseMenu(int choise) {
+    static void choiceMenu(int choice) {
         String back = "0";
         Scanner sc = new Scanner(System.in);
         String tempString;
@@ -60,7 +60,7 @@ public class Main {
         double indexSalary;
         double salary;
         int depAdd;
-        switch (choise) {
+        switch (choice) {
             case 1:
                 book1.printAllInfo();
                 System.out.println("0. Выйти в главное меню ");
@@ -167,7 +167,7 @@ public class Main {
                     }
                 } while (isNotRightDepartment(tempInt));
                 depAdd = Integer.parseInt(tempInt);
-                System.out.println("Минимальная зарплата в отделе " + depAdd + " у сотрудника: " + book1.findMinSalaryByDepratment(depAdd).getFullName());
+                System.out.println("Минимальная зарплата в отделе " + depAdd + " у сотрудника: " + book1.findMinSalaryByDepartment(depAdd).getFullName());
                 System.out.println("Зарплата составляет: " + book1.findMinSalary().getSalary() + " рублей.");
                 System.out.println("0. Выйти в главное меню ");
                 System.out.println("9. Найти максимальную зарплату в этом же отделе");
@@ -179,8 +179,8 @@ public class Main {
                         mainMenu();
                         return;
                     } else if (Integer.parseInt(tempInt) == 9) {
-                        System.out.println("Максимальная зарплата в отделе " + depAdd + " у сотрудника: " + book1.findMaxSalarybyDepratment(depAdd).getFullName());
-                        System.out.println("Зарплата составляет: " + book1.findMaxSalarybyDepratment(depAdd).getSalary() + " рублей.");
+                        System.out.println("Максимальная зарплата в отделе " + depAdd + " у сотрудника: " + book1.findMaxSalaryByDepartment(depAdd).getFullName());
+                        System.out.println("Зарплата составляет: " + book1.findMaxSalaryByDepartment(depAdd).getSalary() + " рублей.");
                         System.out.println("0. Выйти в главное меню ");
                         System.out.println("Нажмите любую клавишу для выхода.");
                         tempInt = sc.nextLine();
@@ -192,7 +192,7 @@ public class Main {
                         }
 
                     } else if (Integer.parseInt(tempInt) == 8) {
-                        choiseMenu(8);
+                        choiceMenu(8);
                         return;
                     } else {
                         return;
@@ -209,8 +209,8 @@ public class Main {
                     }
                 } while (isNotRightDepartment(tempInt));
                 depAdd = Integer.parseInt(tempInt);
-                System.out.println("Максимальная зарплата в отделе " + depAdd + " у сотрудника: " + book1.findMaxSalarybyDepratment(depAdd).getFullName());
-                System.out.println("Зарплата составляет: " + book1.findMaxSalarybyDepratment(depAdd).getSalary() + " рублей.");
+                System.out.println("Максимальная зарплата в отделе " + depAdd + " у сотрудника: " + book1.findMaxSalaryByDepartment(depAdd).getFullName());
+                System.out.println("Зарплата составляет: " + book1.findMaxSalaryByDepartment(depAdd).getSalary() + " рублей.");
                 System.out.println("0. Выйти в главное меню ");
                 if (sc.nextInt() == 0) {
                     mainMenu();
@@ -400,8 +400,8 @@ public class Main {
                 return;
             default:
                 System.out.println("Нет такой команды. Для возврата нажмите 0");
-                int defaultChoise = sc.nextInt();
-                if (back.equals("" + defaultChoise)) {
+                int defaultChoice = sc.nextInt();
+                if (back.equals("" + defaultChoice)) {
                     mainMenu();
                 }
         }
