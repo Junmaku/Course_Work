@@ -17,14 +17,6 @@ public class Employee {
         this.department = department;
     }
 
-    public static int getCount() {
-        return count;
-    }
-
-    public static void setCount(int count) {
-        Employee.count = count;
-    }
-
     public double getSalary() {
         return salary;
     }

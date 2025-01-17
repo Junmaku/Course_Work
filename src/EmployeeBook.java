@@ -3,6 +3,14 @@ public class EmployeeBook {
     private int size;
 
     /**
+     * Возвращает количество сотрудников.
+     * @return Размер массива с сотрудниками.
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
      * Конструктор книги сотрудников
      *
      * @param capacity максимальное количество сотрудников
@@ -20,6 +28,15 @@ public class EmployeeBook {
     public boolean isHavePlace() {
         for (Employee employee : EMPLOYEES) {
             if (employee == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isHaveEmployee(int id) {
+        for (Employee e : EMPLOYEES) {
+            if (e != null && e.getId() == id) {
                 return true;
             }
         }
