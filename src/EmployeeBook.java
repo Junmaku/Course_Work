@@ -1,4 +1,4 @@
-public class EmployeeBook {
+class EmployeeBook {
     private final Employee[] employees;
     private int size;
 
@@ -57,7 +57,6 @@ public class EmployeeBook {
                 return;
             }
         }
-        //size++;
         System.out.println("Книга сотрудников переполнена!");
     }
 
@@ -379,5 +378,16 @@ public class EmployeeBook {
         if (count == 0) {
             System.out.printf("Работников с зарплатой выше %.2f не найдено.", salary);
         }
+    }
+    public Employee getEmployeeById(int id) {
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                return employee;
+            }
+            else {
+                System.out.println("No found employee");
+            }
+        }
+        return null;
     }
 }

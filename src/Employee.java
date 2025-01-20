@@ -58,21 +58,20 @@ public class Employee {
     }
 
     public Employee(String lastName, String firstName, int department, double salary) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.salary = salary;
-        this.department = department;
-        this.id = ++Employee.count;
-        this.middleName = null;
+        setLastName(lastName);
+        setFirstName(firstName);
+        setSalary(salary);
+        setDepartment(department);
+        setId(++count);
     }
 
     public Employee(String lastName, String firstName, String middleName, int department, double salary) {
-        this.department = department;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.salary = salary;
-        this.id = ++Employee.count;
+        setLastName(lastName);
+        setFirstName(firstName);
+        setSalary(salary);
+        setDepartment(department);
+        setId(++count);
+        setMiddleName(middleName);
     }
 
     @Override
@@ -80,33 +79,29 @@ public class Employee {
         if (this == o) {
             return true;
         }
-        if (o == null || getAClass() != o.getClass()) {
+        if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
         Employee employee = (Employee) o;
         return Double.compare(salary, employee.salary) == 0 && department == employee.department && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(middleName, employee.middleName);
     }
 
-    private Class<? extends Employee> getAClass() {
-        return getClass();
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, middleName, salary, department);
+        return Objects.hash(getFirstName(), getLastName(), getMiddleName(), getSalary(), getDepartment());
     }
 
     @Override
     public String toString() {
         String info = "\n";
-        info += String.format("ФИО: %s %s %s\n", lastName, firstName, middleName == null ? "" : middleName);
-        info += "Отдел: " + department;
-        info += String.format("\nЗарплата сотрудника: %.2f\n", salary);
+        info += String.format("ФИО: %s %s %s\n", getLastName(), getFirstName(), getMiddleName() == null ? "" : getMiddleName());
+        info += "Отдел: " + getDepartment();
+        info += String.format("\nЗарплата сотрудника: %.2f\n", getSalary());
         return info;
     }
 
     public String getFullName() {
-        return lastName + " " + firstName + (middleName == null ? "" : " " + middleName);
+        return getLastName() + " " + getFirstName() + (getMiddleName() == null ? "" : " " + getMiddleName());
     }
 
     public void printName() {
@@ -114,7 +109,7 @@ public class Employee {
     }
 
     public String getEmployeeWithoutDepartment() {
-        return String.format("id: %d\nФИО: %s %s %s\nЗарплата: %.2f\n", id, lastName, firstName, middleName == null ? "" : middleName, salary);
+        return String.format("id: %d\nФИО: %s %s %s\nЗарплата: %.2f\n", getId(), getLastName(), getFirstName(), getMiddleName() == null ? "" : getMiddleName(), getSalary());
     }
 
     public void printEmployeeWithOutDepartment() {
